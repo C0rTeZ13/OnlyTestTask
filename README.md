@@ -1,9 +1,14 @@
 ## Описание
 Проект реализован с использованием Docker и Laravel. Для запуска используется Docker Compose.
-Ссылка на [тестовое задание](https://recrus.yonote.ru/share/f04cc23c-d495-4f5d-96bc-450afbc4e019).
 
 ## Настройка окружения
-Перед запуском создайте файл `.env` на основе `.env.example` и при необходимости настройте параметры окружения.
+Перед запуском создайте файлы `.env` и `.env.testing` на основе `.env.example` и при необходимости настройте параметры окружения.
+В частности выполните:
+```bash
+php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+php artisan jwt:secret
+docker exec only-app-1 php artisan migrate
+```
 
 ## Запуск проекта
 Команда для сборки и запуска проекта:
@@ -17,9 +22,8 @@ docker compose up -d --build
 - **only-db-1**
 
 ## Заполнение данными (Seeder)
-Чтобы заполнить БД данными для ручных тестов нужно выполнить:
+Чтобы заполнить БД данными для ручных тестов, нужно выполнить:
 ```bash
-docker exec only-app-1 php artisan migrate
 docker exec only-app-1 php artisan db:seed
 ```
 
@@ -32,5 +36,6 @@ http://localhost:8000/api-docs
 ## Тесты
 Для запуска:
 ```bash
+php artisan jwt:secret --env=testing
 docker exec only-app-1 composer test
 ```
