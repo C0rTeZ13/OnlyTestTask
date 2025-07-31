@@ -1,0 +1,57 @@
+Car:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 5
+    model:
+      type: string
+      example: "Toyota Camry"
+    driver_id:
+      type: integer
+      nullable: true
+      example: 3
+    comfort_category:
+      type: integer
+      description: Категория комфорта (1 – First, 2 – Second, 3 – Third)
+      example: 2
+    driver:
+      $ref: '#/Driver'
+
+SearchCarsResponse:
+  type: array
+  items:
+    $ref: '#/Car'
+
+SearchCarsRequest:
+  type: object
+  properties:
+    start_time:
+      type: string
+      format: date-time
+      example: "2025-08-01 14:00:00"
+    end_time:
+      type: string
+      format: date-time
+      example: "2025-08-01 16:00:00"
+    models:
+      type: array
+      items:
+        type: string
+      example: [ "Toyota Corolla", "BMW 320i" ]
+    comfort_categories:
+      type: array
+      items:
+        type: integer
+        enum: [ 1, 2, 3 ]
+      example: [ 1, 2 ]
+  required:
+    - start_time
+    - end_time
+
+Driver:
+  type: object
+  properties:
+    name:
+      type: string
+      example: "Иван Иванов"

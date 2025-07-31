@@ -1,0 +1,50 @@
+Register:
+  type: object
+  properties:
+    name:
+      type: string
+      example: "Иван Иванов"
+    email:
+      type: string
+      format: email
+      example: "ivan@example.com"
+    password:
+      type: string
+      format: password
+      example: "secret"
+    position_id:
+      type: integer
+      example: 2
+  required:
+    - name
+    - email
+    - password
+    - position_id
+
+Login:
+  type: object
+  properties:
+    email:
+      type: string
+      example: "ivan@example.com"
+    password:
+      type: string
+      example: "secret"
+  required:
+    - email
+    - password
+
+User:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 5
+    name:
+      type: string
+      example: "Иван Иванов"
+    email:
+      type: string
+      example: "ivan@example.com"
+    position_id:
+      type: integer

@@ -1,0 +1,22 @@
+CarsSearch:
+  post:
+    summary: Получить список доступных автомобилей
+    tags:
+      - cars
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './schemas/cars.yaml#/SearchCarsRequest'
+    responses:
+      '200':
+        description: Успешный запрос
+        content:
+          application/json:
+            schema:
+              $ref: './schemas/cars.yaml#/SearchCarsResponse'
+      '400':
+        $ref: '../index.yaml#/components/responses/BadRequest'

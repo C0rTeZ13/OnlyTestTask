@@ -1,0 +1,66 @@
+Register:
+  post:
+    summary: Регистрация пользователя
+    tags:
+      - auth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './schemas/auth.yaml#/Register'
+    responses:
+      '200':
+        description: Успешная регистрация
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+      '400':
+        $ref: '../index.yaml#/components/responses/BadRequest'
+
+Login:
+  post:
+    summary: Авторизация пользователя
+    tags:
+      - auth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './schemas/auth.yaml#/Login'
+    responses:
+      '200':
+        description: Успешная авторизация
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+      '400':
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      '401':
+        $ref: '../index.yaml#/components/responses/Unauthorized'
+
+User:
+  get:
+    summary: Получить текущего пользователя
+    tags:
+      - auth
+    security:
+      - bearerAuth: []
+    responses:
+      '200':
+        description: Данные текущего пользователя
+        content:
+          application/json:
+            schema:
+              $ref: './schemas/auth.yaml#/User'
+      '401':
+        $ref: '../index.yaml#/components/responses/Unauthorized'

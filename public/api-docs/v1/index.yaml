@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  title: OnlyTestTask
+  version: 1.0.0
+  description: API для бронирования машин
+
+servers:
+  - url: http://localhost:8000/api
+    description: Development Server
+
+tags:
+  - name: auth
+    description: Авторизация
+  - name: cars
+    description: Операции с автомобилями
+
+paths:
+  /auth/register:
+    $ref: "./auth/paths.yaml#/Register"
+  /auth/login:
+    $ref: "./auth/paths.yaml#/Login"
+  /auth/user:
+    $ref: "./auth/paths.yaml#/User"
+  /cars/search:
+    $ref: "./cars/paths.yaml#/CarsSearch"
+
+components:
+  parameters:
+    CarId:
+      name: car
+      in: path
+      required: true
+      description: ID автомобиля
+      schema:
+        type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    ComfortCategoryEnum:
+      type: integer
+      enum: [ 1, 2, 3 ]
+      description: |
+        Категории комфорта:
+          - 1: First
+          - 2: Second
+          - 3: Third
+
+  responses:
+    BadRequest:
+      description: Неверный запрос
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Ошибка валидации"
+    Unauthorized:
+      description: Не авторизован
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Unauthenticated."
