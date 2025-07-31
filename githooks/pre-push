@@ -1,0 +1,12 @@
+#!/bin/sh
+
+echo "⏳ Running tests in container..."
+
+docker exec --tty only-app-1 composer test
+
+if [ $? -ne 0 ]; then
+  echo "❌ Tests failed. Push aborted."
+  exit 1
+fi
+
+echo "✅ Tests passed. Proceeding with push."
