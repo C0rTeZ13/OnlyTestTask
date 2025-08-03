@@ -3,7 +3,7 @@
 
 ## Запуск проекта
 ```bash
-git clone git@github.com:C0rTeZ13/OnlyTestTask.git
+git clone https://github.com/C0rTeZ13/OnlyTestTask.git
 cd OnlyTestTask
 ```
 Команда для сборки и запуска проекта:
