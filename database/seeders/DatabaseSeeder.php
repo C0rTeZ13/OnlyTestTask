@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
     {
         $positions = [
             'Director' => [ComfortCategoryEnum::FIRST, ComfortCategoryEnum::SECOND, ComfortCategoryEnum::FIRST],
-            'Manager' => [ComfortCategoryEnum::SECOND, ComfortCategoryEnum::THIRD],
+            'Manager' => [ComfortCategoryEnum::FIRST, ComfortCategoryEnum::SECOND, ComfortCategoryEnum::THIRD],
             'Employee' => [ComfortCategoryEnum::SECOND, ComfortCategoryEnum::THIRD],
             'Consultant' => [ComfortCategoryEnum::THIRD],
             'Intern' => [ComfortCategoryEnum::THIRD],

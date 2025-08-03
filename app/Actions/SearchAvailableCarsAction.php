@@ -15,32 +15,26 @@ class SearchAvailableCarsAction
         $user = auth()->user();
 
         $allowedCategories = $user->position->comfort_categories;
-
         $filterModels = $fields['models'] ?? [];
         $filterCategories = array_intersect($fields['comfort_categories'] ?? [], $allowedCategories);
 
         $start = Carbon::parse($fields['start_time']);
         $end = Carbon::parse($fields['end_time']);
 
-        $query = Car::query()
-            ->whereIn('comfort_category', $allowedCategories);
+        $query = Car::query();
+
+        $categories = !empty($filterCategories) ? $filterCategories : $allowedCategories;
+
+        $query->whereIn('comfort_category', $categories);
 
         if (!empty($filterModels)) {
             $query->whereIn('model', $filterModels);
         }
 
-        if (!empty($filterCategories)) {
-            $query->whereIn('comfort_category', array_intersect($filterCategories, $allowedCategories));
-        }
-
         $query->whereDoesntHave('trips', function ($q) use ($start, $end) {
             $q->where(function ($query) use ($start, $end) {
-                $query->whereBetween('start_time', [$start, $end])
-                    ->orWhereBetween('end_time', [$start, $end])
-                    ->orWhere(function ($sub) use ($start, $end) {
-                        $sub->where('start_time', '<', $start)
-                            ->where('end_time', '>', $end);
-                    });
+                $query->where('start_time', '<', $end)
+                    ->where('end_time', '>', $start);
             });
         });
 
